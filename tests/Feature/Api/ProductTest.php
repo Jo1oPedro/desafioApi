@@ -81,7 +81,7 @@ class ProductTest extends TestCase
         $response = $this->delete(self::ROUTE . "/1");
         $response->assertStatus(204);
         if(Product::find(1)) {
-            fail();
+            $this->fail();
         }
     }
 
