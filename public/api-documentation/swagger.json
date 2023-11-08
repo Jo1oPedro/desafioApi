@@ -18,7 +18,7 @@
                 "operationId": "d97d1c3727cbac49708b85f7d11f7d58",
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Todos os produtos retornados com paginação",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -26,6 +26,78 @@
                                         "products": {
                                             "type": "string",
                                             "example": "'current_page': 1, 'data':[{'id': 1,'nome': 'cascata','descricao': 'teste', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z'}, {'id': 2,'nome': 'cascata2','descricao': 'teste2', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z'}], "
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Endpoint para criar um produto",
+                "description": "Armazena um novo produto no banco de dados caso o mesmo seja validado pelas regras presentes no StoreProductRequest",
+                "operationId": "785644b7d7dd38af4b51dafd0fbc1b6d",
+                "requestBody": {
+                    "description": "Dados do produto a ser criado",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Produto A"
+                                    },
+                                    "descricao": {
+                                        "type": "string",
+                                        "example": "Uma breve descrição do produto"
+                                    },
+                                    "preco": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 29.99
+                                    },
+                                    "quantidade": {
+                                        "type": "integer",
+                                        "example": 10
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produto criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "['id': 1,'nome': 'Produto A','descricao': 'Uma breve descrição do produto', 'preco': 29.99, 'quantidade': 10, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z']"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Algum erro ocorreu durante a criação do produto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Falha para criar o produto"
                                         }
                                     },
                                     "type": "object"
@@ -57,7 +129,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Produto encontrado",
                         "content": {
                             "application/json": {
                                 "schema": {

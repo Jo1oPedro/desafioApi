@@ -27,7 +27,7 @@ class ProductController extends Controller
      *  path="/api/products",
      *  @OA\Response(
      *    response=200,
-     *    description="",
+     *    description="Todos os produtos retornados com paginação",
      *    @OA\JsonContent(
      *       @OA\Property(property="products", type="string", example="'current_page': 1, 'data':[{'id': 1,'nome': 'cascata','descricao': 'teste', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z'}, {'id': 2,'nome': 'cascata2','descricao': 'teste2', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z'}], ")
      *    )
@@ -43,6 +43,38 @@ class ProductController extends Controller
     /**
      * Armazena um novo produto no banco de dados caso o mesmo seja validado
      * pelas regras presentes no StoreProductRequest.
+     */
+    /**
+     * @OA\POST(
+     *  tags={"Product"},
+     *  summary="Endpoint para criar um produto",
+     *  description="Armazena um novo produto no banco de dados caso o mesmo seja validado pelas regras presentes no StoreProductRequest",
+     *  path="/api/products",
+     *  @OA\RequestBody(
+     *     required=true,
+     *     description="Dados do produto a ser criado",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="nome", type="string", example="Produto A"),
+     *       @OA\Property(property="descricao", type="string", example="Uma breve descrição do produto"),
+     *       @OA\Property(property="preco", type="number", format="float", example=29.99),
+     *       @OA\Property(property="quantidade", type="integer", example=10)
+     *     )
+     *   ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="Produto criado com sucesso",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="['id': 1,'nome': 'Produto A','descricao': 'Uma breve descrição do produto', 'preco': 29.99, 'quantidade': 10, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z']")
+     *    )
+     *  ),
+     *  @OA\Response(
+     *    response=422,
+     *    description="Algum erro ocorreu durante a criação do produto",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Falha para criar o produto"),
+     *    )
+     *  )
+     * )
      */
     public function store(StoreProductRequest $request)
     {
@@ -65,7 +97,7 @@ class ProductController extends Controller
      *   ),
      *  @OA\Response(
      *    response=200,
-     *    description="",
+     *    description="Produto encontrado",
      *    @OA\JsonContent(
      *       @OA\Property(property="product", type="string", example="['id': 1,'nome': 'cascata','descricao': 'teste', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z']")
      *    )
