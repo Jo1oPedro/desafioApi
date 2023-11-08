@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Exibe uma lista completade todos os produtos no banco paginada de 5 em 5 produtos.
      */
     public function index()
     {
@@ -19,7 +19,8 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena um novo produto no banco de dados caso o mesmo seja validado
+     * pelas regras presentes no StoreProductRequest.
      */
     public function store(StoreProductRequest $request)
     {
@@ -28,7 +29,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Exibe as informações de um produto no banco caso o mesmo exista.
      */
     public function show(string $id)
     {
@@ -40,7 +41,9 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza as informações de um produto no banco, caso ele seja validado pelas regras
+     * presentes no Update Product Request, baseado no
+     * parametro enviada na rota e recebido pelo parametro $id do método.
      */
     public function update(UpdateProductRequest $request, string $id)
     {
@@ -54,7 +57,8 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove um produto do banco baseado no id enviado pela requisição,
+     * caso o mesmo exista no banco de dados.
      */
     public function destroy(string $id)
     {
