@@ -20,7 +20,19 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     /**
-     * Exibe uma lista completade todos os produtos no banco paginada de 5 em 5 produtos.
+     * @OA\GET(
+     *  tags={"Product"},
+     *  summary="Endpoint responsável por retornar todos os produtos paginados",
+     *  description="Exibe uma lista completa de todos os produtos no banco paginada de 5 em 5 produtos.",
+     *  path="/api/products",
+     *  @OA\Response(
+     *    response=200,
+     *    description="",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="products", type="string", example="'current_page': 1, 'data':[{'id': 1,'nome': 'cascata','descricao': 'teste', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z'}, {'id': 2,'nome': 'cascata2','descricao': 'teste2', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z'}], ")
+     *    )
+     *  ),
+     * )
      */
     public function index()
     {
