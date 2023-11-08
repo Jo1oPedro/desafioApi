@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreProductRequest extends FormRequest
 {
@@ -38,5 +40,15 @@ class StoreProductRequest extends FormRequest
             "float" => "Este :attribute precisa ser um valor real",
             "integer" => "Este :attribute precisa ser um valor inteiro",
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = response()->json([
+            'errors' => $validator->errors(),
+            'message' => 'Authentication failed'
+        ], 422);
+
+        throw new HttpResponseException($response);
     }
 }
