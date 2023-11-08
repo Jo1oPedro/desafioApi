@@ -121,9 +121,50 @@ class ProductController extends Controller
     }
 
     /**
-     * Atualiza as informações de um produto no banco, caso ele seja validado pelas regras
-     * presentes no Update Product Request, baseado no
-     * parametro enviada na rota e recebido pelo parametro $id do método.
+     * @OA\PUT(
+     *  tags={"Product"},
+     *  summary="Endpoint para editar um produto",
+     *  description="Atualiza as informações de um produto no banco, caso ele seja validado pelas regras presentes no Update Product Request, baseado no parametro enviada na rota e recebido pelo parametro $id do método.",
+     *  path="/api/products/{id}",
+     *  @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     description="ID do produto a ser editado",
+     *     @OA\Schema(type="integer")
+     *    ),
+     *  @OA\RequestBody(
+     *     required=false,
+     *     description="Dados do produto a ser editado",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="nome", type="string", example="Produto A"),
+     *       @OA\Property(property="descricao", type="string", example="Uma breve descrição do produto"),
+     *       @OA\Property(property="preco", type="number", format="float", example=29.99),
+     *       @OA\Property(property="quantidade", type="integer", example=10)
+     *     )
+     *   ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="Produto editado com sucesso",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="product", type="string", example="['id': 1,'nome': 'Produto A','descricao': 'Uma breve descrição do produto', 'preco': 29.99, 'quantidade': 10, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z']")
+     *    )
+     *  ),
+     *  @OA\Response(
+     *     response=404,
+     *     description="Produto não encontrado",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="message", type="string", example="Produto não encontrado"),
+     *     )
+     *   ),
+     *  @OA\Response(
+     *    response=422,
+     *    description="Algum erro ocorreu durante a edição do produto",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Falha para criar o produto"),
+     *    )
+     *  )
+     * )
      */
     public function update(UpdateProductRequest $request, string $id)
     {
