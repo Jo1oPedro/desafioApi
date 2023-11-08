@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             "nome" => "required|string|min:2",
             "descricao" => "required|string|min:1",
-            "preco" => "required|float",
+            "preco" => "required|numeric",
             "quantidade" => "required|integer",
         ];
     }
@@ -37,7 +37,7 @@ class StoreProductRequest extends FormRequest
             "required" => "O campo :attribute é obrigatório",
             "string" => "O campo :attribute precisa ser uma string",
             "min" => "O campo :attribute precisa ter pelo menos :min caracteres",
-            "float" => "Este :attribute precisa ser um valor real",
+            "numeric" => "Este :attribute precisa ser um valor real",
             "integer" => "Este :attribute precisa ser um valor inteiro",
         ];
     }
@@ -46,7 +46,7 @@ class StoreProductRequest extends FormRequest
     {
         $response = response()->json([
             'errors' => $validator->errors(),
-            'message' => 'Authentication failed'
+            'message' => 'Falha para criar o produto'
         ], 422);
 
         throw new HttpResponseException($response);
