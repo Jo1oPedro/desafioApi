@@ -1,0 +1,56 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Desafio",
+        "contact": {
+            "email": "joao.pedreira@estudante.ufjf.br"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/products/1": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Exibe um produto selecionado no parametro da rota",
+                "description": "",
+                "operationId": "e49ed2758b3f35e2c60c2ff741e6b6f1",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Post": {
+                                            "type": "string",
+                                            "example": "['id': 1,'nome': 'cascata','descricao': 'teste', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z']"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não foi encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Produto não encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
