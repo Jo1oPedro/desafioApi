@@ -53,9 +53,16 @@ class ProductController extends Controller
     /**
      * @OA\GET(
      *  tags={"Product"},
-     *  summary="Exibe um produto selecionado no parametro da rota",
-     *  description="",
-     *  path="/api/products/1",
+     *  summary="Endpoint para recuperar um produto especifico",
+     *  description="Exibe um produto selecionado no parametro da rota",
+     *  path="/api/products/{id}",
+     *  @OA\Parameter(
+     *    name="id",
+     *    in="path",
+     *    required=true,
+     *    description="ID do produto a ser pesquisado",
+     *    @OA\Schema(type="integer")
+     *   ),
      *  @OA\Response(
      *    response=200,
      *    description="",
@@ -98,13 +105,38 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove um produto do banco baseado no id enviado pela requisição,
-     * caso o mesmo exista no banco de dados.
+     * @OA\DELETE(
+     *  tags={"Product"},
+     *  summary="Endpoint para deletar um produto",
+     *  description="Remove um produto do banco baseado no id enviado pela requisição, caso o mesmo exista no banco de dados",
+     *  path="/api/products/{id}",
+     *  @OA\Parameter(
+     *    name="id",
+     *    in="path",
+     *    required=true,
+     *    description="ID do produto a ser deletado",
+     *    @OA\Schema(type="integer")
+     *  ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Produto deletado com sucesso")
+     *    )
+     *  ),
+     *  @OA\Response(
+     *    response=404,
+     *    description="Produto não foi encontrado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Produto não encontrado"),
+     *    )
+     *  )
+     * )
      */
     public function destroy(string $id)
     {
         if(Product::destroy($id)) {
-            return response()->json(['message' => 'Produto deletado com sucesso'], 204);
+            return response()->json(['message' => 'Produto deletado com sucesso'], 200);
         }
         return response()->json(['message' => 'Produto não encontrado'], 404);
     }

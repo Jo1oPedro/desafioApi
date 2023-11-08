@@ -79,7 +79,7 @@ class ProductTest extends TestCase
     public function test_deve_deletar_produto_com_sucesso(): void
     {
         $response = $this->delete(self::ROUTE . "/1");
-        $response->assertStatus(204);
+        $response->assertStatus(200);
         if(Product::find(1)) {
             $this->fail();
         }

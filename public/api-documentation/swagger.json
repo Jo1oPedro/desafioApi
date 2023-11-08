@@ -36,14 +36,25 @@
                 }
             }
         },
-        "/api/products/1": {
+        "/api/products/{id}": {
             "get": {
                 "tags": [
                     "Product"
                 ],
-                "summary": "Exibe um produto selecionado no parametro da rota",
-                "description": "",
-                "operationId": "e49ed2758b3f35e2c60c2ff741e6b6f1",
+                "summary": "Endpoint para recuperar um produto especifico",
+                "description": "Exibe um produto selecionado no parametro da rota",
+                "operationId": "c87fb2e4d617e7b36c712cad358acdb8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do produto a ser pesquisado",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "",
@@ -54,6 +65,59 @@
                                         "product": {
                                             "type": "string",
                                             "example": "['id': 1,'nome': 'cascata','descricao': 'teste', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z']"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não foi encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Produto não encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Endpoint para deletar um produto",
+                "description": "Remove um produto do banco baseado no id enviado pela requisição, caso o mesmo exista no banco de dados",
+                "operationId": "b49ce9f3cb168b233245548fb4ef36d3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do produto a ser deletado",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Produto deletado com sucesso"
                                         }
                                     },
                                     "type": "object"
