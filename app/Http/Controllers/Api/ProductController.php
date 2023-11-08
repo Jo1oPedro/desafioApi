@@ -1,11 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
+
+/**
+ * @OA\Info(
+ *   title="API Desafio",
+ *   version="1.0",
+ *   contact={
+ *     "email": "joao.pedreira@estudante.ufjf.br"
+ *   }
+ * )
+ */
 
 class ProductController extends Controller
 {
@@ -15,7 +25,7 @@ class ProductController extends Controller
     public function index()
     {
         $posts = Product::query()->paginate(5);
-        return response()->json($posts, 200);
+        return response()->json(['products' => $posts], 200);
     }
 
     /**
@@ -25,17 +35,36 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $product = Product::create($request->all());
-        return response()->json($product, 200);
+        return response()->json(['product' => $product], 200);
     }
 
     /**
-     * Exibe as informações de um produto no banco caso o mesmo exista.
+     * @OA\GET(
+     *  tags={"Product"},
+     *  summary="Exibe um produto selecionado no parametro da rota",
+     *  description="",
+     *  path="/api/products/1",
+     *  @OA\Response(
+     *    response=200,
+     *    description="",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="product", type="string", example="['id': 1,'nome': 'cascata','descricao': 'teste', 'preco': 0, 'quantidade': 7, 'created_at': '2023-11-08T15:10:55.000000Z', 'updated_at': '2023-11-08T15:10:55.000000Z']")
+     *    )
+     *  ),
+     *  @OA\Response(
+     *    response=404,
+     *    description="Produto não foi encontrado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Produto não encontrado"),
+     *    )
+     *  )
+     * )
      */
     public function show(string $id)
     {
         $post = Product::find($id);
         if($post) {
-            return response()->json($post, 202);
+            return response()->json(['product' => $post], 202);
         }
         return response()->json(['message' => 'Produto não encontrado'], 404);
     }
@@ -51,7 +80,7 @@ class ProductController extends Controller
         if($product) {
             $product->update($request->all());
             $product->save();
-            return response()->json($product, 200);
+            return response()->json(['product' => $product], 200);
         }
         return response()->json(['message' => 'Produto não encontrado'], 404);
     }
