@@ -63,7 +63,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         if(Product::destroy($id)) {
-            return response()->json(['message' => 'Produto deletado com sucesso'], 201);
+            return response()->json(['message' => 'Produto deletado com sucesso'], 204);
         }
         return response()->json(['message' => 'Produto não encontrado'], 404);
     }
